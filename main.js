@@ -1,12 +1,15 @@
-function create() 
+function create()
 {
+	while(true) {
+		console.log("hi");
+	}
 	var grid = clickableGrid(28,28,function(e,row,col,i)
 	{
 		/*console.log("You clicked on element:",e);
 		console.log("You clicked on row:",row);
 		console.log("You clicked on col:",col);
 		console.log("You clicked on item #:",i);*/
-		
+
 		if(e.className == 'clicked')
 			e.className = '';
 		else
@@ -17,12 +20,17 @@ function create()
 	var b = document.createElement('button');
 	b.id = "submit";
 	b.innerHTML = "Submit";
-	b.onclick = function Process() 
+	b.onclick = function Process()
 	{
 		console.log("Working");
 	}
 	document.body.appendChild(document.createElement('br'));
 	document.body.appendChild(b);
+
+	$.getJSON("ANNData.json", function(json)
+	{
+    console.log(json); // this will show the info it in firebug console
+	});
 }
 
 function clickableGrid(rows, cols, callback)
