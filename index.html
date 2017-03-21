@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Neural Network Input</title>
-	<link href="style.css" type="text/css" rel="stylesheet" />
-    <script src="main.js"></script>
-  </head>
-  <body onload="create()">
-	<div style="text-align: center; font-size: 30px;"><Strong>Insert your Number Below</Strong></div>
-	<!--<button onclick="Process()" style="text-align: right">Submit</button>-->
-  </body>
+    <head>
+        <title>Neural Network Input</title>
+      	<link href="style.css" type="text/css" rel="stylesheet" />
+        <script src="JQuery.js"></script>
+        <script src="main.js"></script>
+        <script src="canvas.js"></script>
+    </head>
+    <!--<body onload="create()">
+        <div style="text-align: center; font-size: 30px;"><Strong>Insert your Number Below</Strong></div>-->
+    <body>
+        <span><canvas id="canvas" width="280" height="280"></canvas></span>
+        <span><canvas id="out" width="280" height="280"></canvas></span>
+        <br>
+        <span><button id="b" onclick="Process()">Compute</button></span>
+    </body>
 </html>
