@@ -30,7 +30,17 @@ $(document).ready(function () {
         paint = false;
     });
 
-    $("#read").on("click", Process);
+    $("#clear").on("click", function () {
+        //clear drawing context
+        clickX = [];
+        clickY = [];
+        clickDrag = [];
+        paint = false;
+        redraw();
+
+        //clear outline context
+        outlineContext.clearRect(0, 0, outlineContext.canvas.width, outlineContext.canvas.height);
+    });
 
     var clickX = [];
     var clickY = [];
@@ -76,12 +86,12 @@ function getDownsampledDrawing() {
             var found = false;
             for (var i = 0; i < data.length; i++)
             {
+                var layer = [];
                 if (data[i])
                 {
                     output.push(1);
 
                     outlineContext.fillRect(x, y, blockSize, blockSize);
-
 
                     found = true;
                     break;
@@ -90,9 +100,7 @@ function getDownsampledDrawing() {
             if (!found) {
                 output.push(0);
             }
-
             outlineContext.strokeRect(x, y, blockSize, blockSize);
-
         }
     }
 

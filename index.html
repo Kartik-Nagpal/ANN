@@ -10,9 +10,19 @@
     <!--<body onload="create()">
         <div style="text-align: center; font-size: 30px;"><Strong>Insert your Number Below</Strong></div>-->
     <body>
-        <span><canvas id="canvas" width="280" height="280"></canvas></span>
-        <span><canvas id="out" width="280" height="280"></canvas></span>
-        <br>
-        <span><button id="b" onclick="Process()">Compute</button></span>
+        <figure>
+            <span><canvas id="canvas" width="280" height="280"></canvas></span>
+            <figcaption>Input</figcaption>
+        </figure>
+        <figure>
+          <span><canvas id="out" width="280" height="280"></canvas></span>
+          <figcaption>Processed</figcaption>
+        </figure>
+        <figure style="margin-top = 1000px;">
+          <span><button id="b" onclick="Process()">Compute</button></span>
+        </figure>
+        <figure style="margin-top = 1000px;">
+          <span><button id="clear">Clear</button></span>
+        </figure>
     </body>
 </html>
