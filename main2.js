@@ -70,28 +70,34 @@ function Process()
 		alert("You have drawn a: " + maxIndex);
 }
 
-function compute(input)
+function compute(data)
 {
-		var outL1 = [];
-		for (var i = 0; i < wL1.length; i++)
-		{
-		  outL1[i] = b1[i];
-		  for (var j = 0; j < wL1[i].length; j++)
-			{
-		    outL1[i] += input[j] * wL1[i][j];
-		  }
-		  outL1[i] = sigmoid(outL1[i]);
-		}
+			// compute layer2 output
+			var out2 = [];
+			for (var i=0; i<w12.length; i++) {
+				out2[i] = bias2[i];
+				for (var j=0; j<w12[i].length; j++) {
+					out2[i] += data[j] * w12[i][j];
+				}
+				out2[i] = 1 / (1 + Math.exp(-out2[i]));
+			}
+			//compute layer3 activation
+			var out3 = [];
+			for (var i=0; i<w23.length; i++) {
+				out3[i] = bias3[i];
+				for (var j=0; j<w23[i].length; j++) {
+					out3[i] += out2[j] * w23[i][j];
+				}
+			}
+			// compute layer3 output (softmax)
+			var max3 = out3.reduce(function(p,c) { return p>c ? p : c; });
+			var nominators = out3.map(function(e) { return Math.exp(e - max3); });
+			var denominator = nominators.reduce(function (p, c) { return p + c; });
+			var output = nominators.map(function(e) { return e / denominator; });
 
-		var out = [];
-		for (var i = 0; i < wL2.length; i++)
-		{
-		  out[i] = b2[i];
-		  for (var j = 0; j < wL2[i].length; j++)
-			{
-		    out[i] += outL1[j] * wL2[i][j];
-		  }
-		}
+			// timing measurement
+			return output;
+
 
 		// compute final output
 		var max = out.reduce(
