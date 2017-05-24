@@ -1,5 +1,10 @@
+//Create the canvas for User Input and add ~"actionlisteners" for drawing
 $(document).ready(function () {
     context = document.getElementById("canvas").getContext("2d");
+    var clickX = [];
+    var clickY = [];
+    var clickDrag = [];
+    var paint;
 
     //create outline context
     outlineContext = document.getElementById("out").getContext("2d");
@@ -42,11 +47,6 @@ $(document).ready(function () {
         outlineContext.clearRect(0, 0, outlineContext.canvas.width, outlineContext.canvas.height);
     });
 
-    var clickX = [];
-    var clickY = [];
-    var clickDrag = [];
-    var paint;
-
     function addClick(x, y, dragging) {
         clickX.push(x);
         clickY.push(y);
@@ -73,6 +73,7 @@ $(document).ready(function () {
     }
 }
 );
+
 //Create and return an array with 225 items (15x15) which represents a downsampled image
 function getDownsampledDrawing() {
     var output = [];
@@ -103,6 +104,5 @@ function getDownsampledDrawing() {
             outlineContext.strokeRect(x, y, blockSize, blockSize);
         }
     }
-
     return output;
 }

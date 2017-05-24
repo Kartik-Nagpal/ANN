@@ -1,77 +1,56 @@
-function create()
-{
-		var grid = clickableGrid(28,28,function(e,row,col,i)
-		{
-			/*console.log("You clicked on element:",e);
-			console.log("You clicked on row:",row);
-			console.log("You clicked on col:",col);
-			console.log("You clicked on item #:",i);*/
-
-				if(e.className == 'clicked')
-						e.className = '';
-				else
-						e.className = 'clicked';
-		});
-
-		document.body.appendChild(grid);
-}
-
-function clickableGrid(rows, cols, callback)
-{
-		var i = 0;
-		var grid = document.createElement('table');
-		grid.className = 'grid';
-		for (var r = 0; r < rows; ++r)
-		{
-				var tr = grid.appendChild(document.createElement('tr'));
-				for (var c = 0; c < cols; ++c)
-				{
-						var cell = tr.appendChild(document.createElement('td'));
-						cell.id = ++i;
-						cell.addEventListener('click',(function(e,r,c,i)
-						{
-								return function()
-								{
-										callback(e,r,c,i);
-								}
-						})(cell,r,c,i),false);
-				}
-		}
-		return grid;
-}
 
 function Process()
 {
-		//Constants I got from my Python ANN and courtesy of myselph.de
-					//Mostly stored in WB.js (Weights and Biases) now
-		sizes = [784, 10];
+		//Constants I got from my Python ANN with help from myselph.de
+		//Weights and biases are stored in WB.js (Weights and Biases) now
+		sizes = [784, 200, 10];
 
-		//Maths
+		//Converts from the many pixel that's been inputted by the user and downgrades it to a 15x15 grid
 		var drawing = getDownsampledDrawing();
-		//var cd = centerData(drawing);
 
-		var maxIndex = 0;
-    var output = compute(drawing);
+		//This method is made to center the image so that the Neural Net is able to better read the data in
+		//var cd = centerData(drawing); //This Line is relativally unstable and so has been commented out.
+
+
+		//Define a variable which will later hold our final output for the program
+		var maxIndex = -1;
+
+		//RUNS THE ACTUAL NEURAL NET and stores the certainty values produced by the net in a var "output"
+		var output = compute(drawing);
+		//Prints out the Array(in console) for easier debugging
     console.log(output);
+
+		//finds the largest value in the array "output"
     output.reduce(function(p, c, i)
 		{
 			if(p < c)
 			{
+				//stores the index(the number that the neural net thinks has been written) in the higher scope variable "maxIndex"
 				maxIndex = i;
 				return c;
 			}
 			else return p;
 		});
+
+		//prints the "maxIndex" for easier debugging
     console.log('maxIndex: ' + maxIndex);
 
+
+		//Adding the data to the actual webpage for user viewing
 		var x = document.getElementById("output");
 		x.innerHTML = "You have drawn a: " + maxIndex;
 
+		//alert in case the user has a small screen and doesn't see the added text
 		alert("You have drawn a: " + maxIndex);
 }
 
 function compute(input)
 {
+		/*
+				Grabs the downgraded input from the user and runs through
+		    the math for the first layer of the nueral net and
+				stores the result in "outL1[]"
+		*/
 		var outL1 = [];
 		for (var i = 0; i < wL1.length; i++)
 		{
@@ -120,11 +99,20 @@ function compute(input)
 
 function sigmoid(z)
 {
+		//mathematical sigmoid function
     return 1/(1 + Math.exp(-z));
 }
 
 function centerData(input)
 {
+		//Tempermental Portion of the program: IMAGE PROCESSING
+		/*
+			Tries to find the centeroid of the digit drawn and
+			using that point, it defines a bounding rectangle around the digit.
+			Finally, it moves the bounding rectangle to the center of the main rectangle
+			so that it looks like a regular image from MNIST, but there are no size or
+			shape modifications on the input.
+		*/
 	  var meanX = 0;
 	  var meanY = 0;
 	  var rows = input.length;
@@ -188,6 +176,7 @@ function centerData(input)
 
 function getBoundingRectangle(img, threshold)
 {
+	 //helper function 1 for image processing
 	 var rows = img.length;
 	 var columns = img[0].length;
 	 var minX=columns;
@@ -209,6 +198,7 @@ function getBoundingRectangle(img, threshold)
 
 function imageDataToGrayscale(imgData)
 {
+		//helper function 2 for image processing
 		var grayscaleImg = [];
 		for (var y = 0; y < imgData.height; y++)
 		{

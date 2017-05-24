@@ -1,7 +1,13 @@
+<!--
+    Basic Framework to hold the User Input canvas
+    and frontend for Neural Net
+-->
 <!DOCTYPE html>
 <html>
     <head>
         <title>Neural Network Input</title>
+
+        <!-- Links to the Neural net files and CSS files -->
       	<link href="style.css" type="text/css" rel="stylesheet" />
         <script src="JQuery.js"></script>
         <script src="WB.js"></script>
@@ -9,20 +15,29 @@
         <script src="canvas.js"></script>
     </head>
     <body>
+        <!-- Holds the User Input-->
         <figure>
             <span><canvas id="canvas" width="280" height="280"></canvas></span>
             <figcaption>Input</figcaption>
         </figure>
+
+        <!-- Holds the downgraded image for debugging and user viewing -->
         <figure>
           <span><canvas id="out" width="280" height="280"></canvas></span>
           <figcaption>Processed</figcaption>
         </figure>
+
+        <!-- The button for processing the input -->
         <figure style="margin-top = 1000px;">
           <span><button id="b" onclick="Process()">Compute</button></span>
         </figure>
+
+        <!-- Button to clear the user input box and allow them to redo their image-->
         <figure style="margin-top = 1000px;">
           <span><button id="clear">Clear</button></span>
         </figure>
+
+        <!-- To hold the output of the Neural Net -->
         <h1 id="output"></h1>
     </body>
 </html>
