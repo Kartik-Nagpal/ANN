@@ -74,7 +74,7 @@ $(document).ready(function () {
 }
 );
 
-//Create and return an array with 225 items (15x15) which represents a downsampled image
+//Create and return an array with 784 items (28x28) which represents a downsampled image
 function getDownsampledDrawing() {
     var output = [];
     var blockSize = 10;

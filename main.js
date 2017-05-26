@@ -5,7 +5,7 @@ function Process()
 		//Weights and biases are stored in WB.js (Weights and Biases) now
 		sizes = [784, 200, 10];
 
-		//Converts from the many pixel that's been inputted by the user and downgrades it to a 15x15 grid
+		//Converts from the many pixel that's been inputted by the user and downgrades it to a 784 item array (28x28 grid)
 		var drawing = getDownsampledDrawing();
 
 		//This method is made to center the image so that the Neural Net is able to better read the data in
